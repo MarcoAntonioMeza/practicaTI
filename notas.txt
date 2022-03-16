@@ -1,0 +1,48 @@
+    <?= $form->field($model, 'id_persona')->textInput() ?>
+
+    <?= $form->field($model, 'id_cargo')->textInput() ?>
+
+
+        <?= $form->field($model, 'Nombre')->textInput() ?>
+    <?= $form->field($model, 'Apellidos')->textInput() ?>
+
+    <?php    
+        $cargo = ArrayHelper::map(Cargo::find()->all(), 'idcargo', 'nombre');
+        echo $form->field($model, 'id_cargo')->dropDownList($cargo,['prompt'=>'--Seleccione  cargo--']); 
+    ?>
+
+
+    array(2) { ["_csrf"]=> string(88) "gzRj14d4hjOEaYp4ukpF7DJikKUQOghKbD4k88EckSbJelaC0knQAtwb4C7JfC66aiOmzE9pUgE6eUqDi2qhbA==" 
+    ["Personal"]=> array(3) 
+    { ["grado"]=> string(3) "Lic" ["id_persona"]=> string(1) "1" ["id_cargo"]=> string(1) "1" } }
+
+
+
+
+
+
+        <?= $form->field($model, 'grado')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_persona')->textInput() ?>
+
+    <?= $form->field($model, 'id_cargo')->textInput() ?>
+
+
+
+
+
+
+    
+    <?= $form->field($model, 'grado')->textInput(['maxlength' => true]) ?>
+
+
+
+    <?= $form->field($model, 'Nombre')->textInput() ?>
+
+    <?= $form->field($model, 'Apellidos')->textInput() ?>
+    
+
+    <?php    
+        $cargo = ArrayHelper::map(Cargo::find()->all(), 'idcargo', 'nombre');
+        echo $form->field($model, 'id_cargo')->dropDownList($cargo,['prompt'=>'--Seleccione  cargo--']); 
+    ?>
