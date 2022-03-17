@@ -19,6 +19,7 @@ class PersonalSearch extends Personal
         return [
             [['idpersonal', 'id_persona', 'id_cargo'], 'integer'],
             [['grado'], 'safe'],
+            [['nombre'], 'safe'], //Se anexa el nombre para el filtro de búsqueda
         ];
     }
 
@@ -40,7 +41,8 @@ class PersonalSearch extends Personal
      */
     public function search($params)
     {
-        $query = Personal::find();
+        //$query = Personal::find();
+        $query = Personal::find()->joinWith('persona');
 
         // add conditions that should always apply here
 
@@ -64,6 +66,7 @@ class PersonalSearch extends Personal
         ]);
 
         $query->andFilterWhere(['like', 'grado', $this->grado]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

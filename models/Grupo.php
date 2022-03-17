@@ -45,10 +45,10 @@ class Grupo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idgrupo' => 'Idgrupo',
+            'idgrupo' => 'ID Grupo',
             'grado' => 'Grado',
             'grupo' => 'Grupo',
-            'id_tutor' => 'Id Tutor',
+            'id_tutor' => 'Tutor',
         ];
     }
 
@@ -70,5 +70,17 @@ class Grupo extends \yii\db\ActiveRecord
     public function getTutor()
     {
         return $this->hasOne(Personal::className(), ['idpersonal' => 'id_tutor']);
+    }
+
+    public function getNombreCompletoGrupo(){
+       return $this->grado.'° "'.$this->grupo.'"';
+    }
+    
+    public function getNombreTutor()
+    {
+        if($this->tutor!=null)
+        return $this->tutor->getNombreCompleto();    
+        else
+        return "";
     }
 }

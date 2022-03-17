@@ -19,6 +19,7 @@ class GrupoSearch extends Grupo
         return [
             [['idgrupo', 'id_tutor'], 'integer'],
             [['grado', 'grupo'], 'safe'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -41,6 +42,7 @@ class GrupoSearch extends Grupo
     public function search($params)
     {
         $query = Grupo::find();
+        //$query = Grupo::find()->joinWith('Personal');
 
         // add conditions that should always apply here
 

@@ -48,10 +48,10 @@ class Personal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idpersonal' => 'ID Personal',
+            'idpersonal' => 'Personal',
             'grado' => 'Grado',
-            'id_persona' => 'ID Persona',
-            'id_cargo' => 'ID Cargo',
+            'id_persona' => 'Persona',
+            'id_cargo' => 'Cargo',
         ];
     }
 
@@ -97,6 +97,21 @@ class Personal extends \yii\db\ActiveRecord
     {
         if ($this->persona != null)
             return $this->persona->apellidos;
+        else
+            return "";
+    }
+
+    public function getNombreCompleto()
+    {
+        if ($this->persona != null)
+            return $this->persona->nombre. " ".$this->persona->apellidos;
+        else
+            return "";
+    }
+    public function getNombreCargo()
+    {
+        if ($this->cargo != null)
+            return $this->cargo->nombre;
         else
             return "";
     }

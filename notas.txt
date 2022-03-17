@@ -46,3 +46,46 @@
         $cargo = ArrayHelper::map(Cargo::find()->all(), 'idcargo', 'nombre');
         echo $form->field($model, 'id_cargo')->dropDownList($cargo,['prompt'=>'--Seleccione  cargo--']); 
     ?>
+
+
+        <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <p> <b> Filtrar personal por </b></p>
+                <?= Html::submitButton('Filtrar', ['class' => 'btn btn-primary']) ?>
+            </div>
+            <div class="col-md-3">
+                <?php    
+                    $cargo = ArrayHelper::map(Cargo::find()->all(), 'idcargo', 'nombre');
+                    echo $form->field($model, 'id_cargo')->dropDownList($cargo,['prompt'=>'Seleccione el cargo']); 
+                    //= $form->field($model, 'id_cargo') 
+                ?>
+            </div>
+            <div class="col-md-7">
+                <?= $form->field($model, 'nombre') ?>
+            </div>
+        </div>    
+        <?php //= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    </div>
+
+
+
+    -------------------------------------Buscar form _search---------------------------------------------------------
+    <?php// $form->field($model, 'idpersonal') ?>
+
+<?php// $form->field($model, 'grado') ?>
+
+<?php// $form->field($model, 'id_persona') ?>
+<?php   /* 
+                $cargo = ArrayHelper::map(Cargo::find()->all(), 'idcargo', 'nombre');
+                echo $form->field($model, 'id_cargo')->dropDownList($cargo,['prompt'=>'Seleccione el cargo']); 
+                //= $form->field($model, 'id_cargo') 
+            */?>
+
+<?//= $form->field($model, 'id_cargo') ?>
+<!--
+<div class="form-group">
+    <?php//= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+    <?php//= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+</div>
+-->

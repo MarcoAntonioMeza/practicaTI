@@ -18,6 +18,7 @@ use Yii;
 class Estudiante extends \yii\db\ActiveRecord
 {
     var $nombre;
+    var $apellidos;
     /**
      * {@inheritdoc}
      */
@@ -48,8 +49,8 @@ class Estudiante extends \yii\db\ActiveRecord
         return [
             'idestudiante' => 'Idestudiante',
             'matricula' => 'Matricula',
-            'id_persona' => 'Id Persona',
-            'id_grupo' => 'Id Grupo',
+            'id_persona' => 'Persona',
+            'id_grupo' => 'Grupo',
         ];
     }
 
@@ -72,6 +73,9 @@ class Estudiante extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Persona::className(), ['idpersona' => 'id_persona']);
     }
+
+
+
     public function getNombre()
     {
         if ($this->persona != null)
@@ -79,6 +83,7 @@ class Estudiante extends \yii\db\ActiveRecord
         else
             return "";
     }
+
     public function getApellidos()
     {
         if ($this->persona != null)
@@ -87,10 +92,17 @@ class Estudiante extends \yii\db\ActiveRecord
             return "";
     }
 
-    public function getGradoGrupo()
+    public function getNombreCompleto()
     {
         if ($this->persona != null)
-            return $this->grado->grado."° '".$this->grado->grupo."'";
+            return $this->persona->nombre. " ".$this->persona->apellidos;
+        else
+            return "";
+    }
+
+    public function getNombreGrupo(){
+        if ($this->grupo != null)
+            return $this->grupo->grado.'° "'.$this->grupo->grupo.'"';
         else
             return "";
     }

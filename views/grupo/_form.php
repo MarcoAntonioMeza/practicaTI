@@ -3,6 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+
+/*********NECESARIO PARA SELECCIONAR LA CARGO  ********/
+use yii\helpers\ArrayHelper;  //Consulta BD
+use app\models\Personal;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Grupo */
 /* @var $form yii\widgets\ActiveForm */
@@ -16,14 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'grupo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_tutor')->textInput() ?>
     <?php    
-        $carrera = ArrayHelper::map(Estudiante::find()->all(), 'id', 'GradoGrupo');
-        echo $form->field($model, 'id_carrera')->dropDownList($carrera,['prompt'=>'Seleccione la carrera']); 
+        $tutor = ArrayHelper::map(Personal::find()->all(), 'idpersonal', 'NombreCompleto');
+        echo $form->field($model, 'id_tutor')->dropDownList($tutor,['prompt'=>'Seleccione al tutor']); 
     ?>  
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

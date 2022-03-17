@@ -19,6 +19,7 @@ class EstudianteSearch extends Estudiante
         return [
             [['idestudiante', 'id_persona', 'id_grupo'], 'integer'],
             [['matricula'], 'safe'],
+            [['nombre'], 'safe'],
         ];
     }
 
@@ -40,7 +41,9 @@ class EstudianteSearch extends Estudiante
      */
     public function search($params)
     {
-        $query = Estudiante::find();
+        //$query = Estudiante::find();
+        $query = Estudiante::find()->joinWith('persona');
+        //$query = Grupo::find()->joinWith('grupo');
 
         // add conditions that should always apply here
 
@@ -64,6 +67,8 @@ class EstudianteSearch extends Estudiante
         ]);
 
         $query->andFilterWhere(['like', 'matricula', $this->matricula]);
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
+        $query->andFilterWhere(['like', 'grupo', $this->grupo]);
 
         return $dataProvider;
     }

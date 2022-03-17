@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Personal */
 
-$this->title = $model->idpersonal;
-$this->params['breadcrumbs'][] = ['label' => 'Personals', 'url' => ['index']];
+$this->title = $model->NombreCompleto;
+$this->params['breadcrumbs'][] = ['label' => 'Personal', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo], [
+        <?= Html::a('Actualizar', ['update', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -29,10 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idpersonal',
-            'grado',
-            'id_persona',
-            'id_cargo',
+            // atributos para mostar informacion de cada un usuario(personaL)
+            ['attribute' => 'Nombre', 'value' =>  $model->grado." ".$model->getNombreCompleto() ],
+            ['attribute' => 'Grado', 'value' =>  $model->grado ],
+            ['attribute' => 'Cargo', 'value' =>  $model->getNombreCargo() ],
+            
+            //['attribute' => 'Carrera', 'value' =>  $model->getNombreCarrera() ],
+            //'idpersonal',
+            //'grado',
+            //'id_persona',
+            //'id_cargo',
         ],
     ]) ?>
 

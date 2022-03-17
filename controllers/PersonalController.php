@@ -7,10 +7,10 @@ use app\models\PersonalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+// Usar la clase
 use Yii; 
 
-// referenciar al modelo persona
+// Referenciar al modelo persona
 use app\models\Persona;
 use app\models\PersonaSearch;
 /**
@@ -120,8 +120,22 @@ class PersonalController extends Controller
     {
         $model = $this->findModel($idpersonal, $id_persona, $id_cargo);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo]);
+        //obtener el objeto del modelo persona
+        $persona = $model->persona;
+
+        //Traer los datos
+        $valores = Yii::$app->request->post();
+
+        if(isset($valores['Personal'])){
+            //Creamos un array dentro del mismo con los valores que se utilizaran para cambiar a persona
+            $valores['Persona']['nombre'] = $valores['Personal']['Nombre']; 
+            $valores['Persona']['apellidos'] = $valores['Personal']['Apellidos']; 
+        }
+
+        if (/*$this->request->isPost && */$persona->load($valores) && $persona->save()) {
+            if($model->load($valores) && $model->save()){
+                return $this->redirect(['view', 'idpersonal' => $model->idpersonal, 'id_persona' => $model->id_persona, 'id_cargo' => $model->id_cargo]);
+            }
         }
 
         return $this->render('update', [

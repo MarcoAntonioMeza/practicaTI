@@ -17,14 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Estudiante', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar Estudiante', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'matricula',
             //'id_persona',
             //'id_grupo',
+            ['attribute' => 'Nombre', 'value' =>  'NombreCompleto' ],
+            ['attribute' => 'Grupo', 'value' =>  'NombreGrupo' ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action,  $model, $key, $index, $column) {

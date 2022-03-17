@@ -2,25 +2,26 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\Estudiante;
 use app\models\EstudianteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-// referenciar
+// Usar la clase
+use Yii; 
+
+// Referenciar al modelo persona
 use app\models\Persona;
 use app\models\PersonaSearch;
-use app\models\Grupo;
-use app\models\GrupoSearch;
+
+
 
 /**
  * EstudianteController implements the CRUD actions for Estudiante model.
  */
 class EstudianteController extends Controller
 {
-    
     /**
      * @inheritDoc
      */
@@ -79,34 +80,25 @@ class EstudianteController extends Controller
         $model = new Estudiante();
         $persona = new Persona();
 
+        $val=Yii::$app->request->post();
         
-
-        $valores = Yii::$app->request->post();
-        if( isset($valores['Estudiante']) ){
-            // Se integra el nombre de persona para su registro
-            $valores['Persona']['nombre'] = $valores['Estudiante']['Nombre'];
+        if(isset($val['Estudiante'])){
+            $val['Persona']['nombre'] = $val['Estudiante']['Nombre'];
+            $val['Persona']['apellidos'] = $val['Estudiante']['Apellidos'];
         }
 
-        if ($persona->load($valores) && $persona->save()) {
-            // Se integra el id de persona para el registro del estudiante
-            $valores['Estudiante']['id_persona'] = $persona->id;
-            if ($model->load($valores) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);               
-            } 
-        }
-        else {
-            $model->loadDefaultValues();
-        }
-
-/*
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'idestudiante' => $model->idestudiante, 'id_persona' => $model->id_persona]);
+            if ($persona->load($val) && $persona->save()) {
+                $val['Estudiante']['id_persona'] = $persona->idpersona;
+                if ($model->load($val) && $model->save()) {
+                    return $this->redirect(['view', 'idestudiante' => $model->idestudiante, 'id_persona' => $model->id_persona]);
+                }
             }
+            
         } else {
             $model->loadDefaultValues();
         }
-*/
+
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -124,9 +116,21 @@ class EstudianteController extends Controller
     {
         $model = $this->findModel($idestudiante, $id_persona);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idestudiante' => $model->idestudiante, 'id_persona' => $model->id_persona]);
+                //obtener el objeto del modelo persona
+        $persona = $model->persona;
+
+                //Traer los datos
+        $val = Yii::$app->request->post();
+
+        if(isset($val['Estudiante'])){
+            $val['Persona']['nombre'] = $val['Estudiante']['Nombre'];
+            $val['Persona']['apellidos'] = $val['Estudiante']['Apellidos'];
         }
+
+        if (/*$this->request->isPost && */$persona->load($val) && $model->save()) {
+            if ($model->load($val) && $model->save()) {
+                return $this->redirect(['view', 'idestudiante' => $model->idestudiante, 'id_persona' => $model->id_persona]);
+            }        }
 
         return $this->render('update', [
             'model' => $model,
